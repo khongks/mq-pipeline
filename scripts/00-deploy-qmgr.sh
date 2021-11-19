@@ -68,7 +68,7 @@ $(dirname $0)/03-create-qmgr.sh ${release_name} ${namespace} ${cert_name} ${secr
 # You don't need to create route, there is a auto-generated route.
 # $(dirname $0)/04-create-route.sh ${release_name} ${namespace} ${qmgr_name} ${channel}
 
-$(dirname $0)/05-create-ccdt.sh ${release_name} ${qmgr_name} ${client_folder}/${ccdt_file} ${channel}
+$(dirname $0)/05-create-ccdt.sh ${release_name} ${namespace} ${qmgr_name} ${client_folder}/${ccdt_file} ${channel}
 
 # client_folder=$1
 # ccdt_file=$2

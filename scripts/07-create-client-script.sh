@@ -44,6 +44,8 @@ amqsgetc DEV.QUEUE.3 ${qmgr_name}
 EOF
 
 chmod a+x ${client_folder}/mq-get.sh
+echo "mq-get.sh"
+cat ${client_folder}/mq-get.sh
 
 cat <<EOF > ${client_folder}/mq-put.sh
 export MQCCDTURL=${ccdt_file}
@@ -54,3 +56,5 @@ amqsputc DEV.QUEUE.3 ${qmgr_name}
 EOF
 
 chmod a+x ${client_folder}/mq-put.sh
+echo "mq-put.sh"
+cat ${client_folder}/mq-put.sh

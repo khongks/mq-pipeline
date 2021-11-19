@@ -3,9 +3,10 @@
 # https://www.ibm.com/docs/en/ibm-mq/9.2?topic=ccdt-json-examples
 
 name=$1
-qmgr_name=$2
-ccdt_file=$3
-channel=$4
+namespace=$2
+qmgr_name=$3
+ccdt_file=$4
+channel=$5
 
 echo "----------------------------------------------------------------------"
 echo " INFO: Create CCDT"
@@ -33,7 +34,7 @@ fi
 
 # lowercase_channel=$(echo ${channel} | tr '[:upper:]' '[:lower:]')
 # hostname="${lowercase_channel}.chl.mq.ibm.com"
-hostname=$(oc get route -n integration ${name}-ibm-mq-qm -ojson | jq -r '.spec.host')
+hostname=$(oc get route -n ${namespace} ${name}-ibm-mq-qm -ojson | jq -r '.spec.host')
 
 echo "----------------------------------------------------------------------"
 echo " INFO: Create CCDT (${channel}): name:${name} hostname:${hostname} qmgr:${qmgr_name} ccdt_file:${ccdt_file}"
