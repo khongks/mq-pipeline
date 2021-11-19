@@ -1,0 +1,69 @@
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  name: ${name}
+  namespace: ${namespace}
+spec:
+  license:
+    accept: true
+    license: ${license}
+    metric: VirtualProcessorCore
+    use: ${use}
+  pki:
+    keys:
+      - name: ${cert_name}
+        secret:
+          items:
+            - tls.key
+            - tls.crt
+          secretName: ${secret_name}
+  queueManager:
+    name: ${qmgr_name}
+    mqsc:
+      - configMap:
+          items:
+            - config.mqsc
+          name: ${configmap_name}
+    storage:
+      accessModes:
+        - ReadWriteMany
+      mountOptions:
+        - dir_mode=0755
+        - file_mode=0755
+      defaultClass: ${storage}
+      defaultDeleteClaim: true
+      persistedData:
+        class: ${storage}
+        deleteClaim: true
+        enabled: true
+        type: persistent-claim
+      queueManager:
+        class: ${storage}
+        deleteClaim: true
+        type: persistent-claim
+      recoveryLogs:
+        class: ${storage}
+        deleteClaim: true
+        enabled: true
+        type: persistent-claim
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 50Mi
+    availability:
+      type: SingleInstance
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: ${version}
+  web:
+    enabled: true
+  securityContext:
+     supplementalGroups: [99]
