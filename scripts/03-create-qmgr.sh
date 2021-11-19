@@ -100,20 +100,8 @@ spec:
         - dir_mode=0755
         - file_mode=0755
       defaultClass: ${storage}
-      defaultDeleteClaim: true
-      persistedData:
-        class: ${storage}
-        deleteClaim: true
-        enabled: true
-        type: persistent-claim
       queueManager:
         class: ${storage}
-        deleteClaim: true
-        type: persistent-claim
-      recoveryLogs:
-        class: ${storage}
-        deleteClaim: true
-        enabled: true
         type: persistent-claim
     resources:
       limits:

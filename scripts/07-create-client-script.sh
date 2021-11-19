@@ -35,7 +35,7 @@ if [[ -z $qmgr_name ]]; then
   exit 1
 fi
 
-cat <<EOF > ${client_folder}/mq-get.sh
+cat <<EOF > $(dirname $0)/${client_folder}/mq-get.sh
 export MQCCDTURL=${ccdt_file}
 export MQSSLKEYR=${client_key}
 export MQCERTLABL=${cert_name}
@@ -47,7 +47,7 @@ chmod a+x ${client_folder}/mq-get.sh
 echo "mq-get.sh"
 cat ${client_folder}/mq-get.sh
 
-cat <<EOF > ${client_folder}/mq-put.sh
+cat <<EOF > $(dirname $0)/${client_folder}/mq-put.sh
 export MQCCDTURL=${ccdt_file}
 export MQSSLKEYR=${client_key}
 export MQCERTLABL=${cert_name}
@@ -55,6 +55,6 @@ export MQCERTLABL=${cert_name}
 amqsputc DEV.QUEUE.3 ${qmgr_name}
 EOF
 
-chmod a+x ${client_folder}/mq-put.sh
+chmod a+x $(dirname $0)/${client_folder}/mq-put.sh
 echo "mq-put.sh"
-cat ${client_folder}/mq-put.sh
+cat $(dirname $0)/${client_folder}/mq-put.sh
