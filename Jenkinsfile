@@ -16,7 +16,7 @@ pipeline {
                 echo 'Create namespace, if needed'
                 sh('./scripts/00-create-ns.sh ${NAMESPACE}')
                 echo 'Add entitlement key as secret'
-                sh('./scripts/00/create-ibm-entitlement-key.sh ${IBM_ENTITLEMENT_KEY} ${NAMESPACE}')
+                sh('./scripts/00-create-ibm-entitlement-key.sh ${IBM_ENTITLEMENT_KEY} ${NAMESPACE}')
                 echo 'Setup MQSC'
             }
         }
