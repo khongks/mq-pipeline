@@ -53,7 +53,7 @@ echo "----------------------------------------------------------------------"
 # $(dirname $0)/06-create-client-kdb.sh ${full_client_kdb_file} ${cert_name} ${tls_crt_file} ${passphrase}
 
 echo "----------------------------------------------------------------------"
-echo "Create a secret ${secret_name} containing TLS certificates from ${tls_crt_file} and ${tls_key_file}"
+echo "Create a secret ${secret_name} containing TLS certificates from $(dirname $0)/${tls_crt_file} and $(dirname $0)/${tls_key_file}"
 echo "----------------------------------------------------------------------"
 
 oc get secret -n ${namespace} ${secret_name} -ojson 2>&1
@@ -63,4 +63,4 @@ if [ "$?" = "0" ]; then
 else
     echo "Secret ${secret_name} not found. Create ${secret_name}"
 fi
-oc create secret tls ${secret_name} --key="${tls_key_file}" --cert="${tls_crt_file}" -n ${namespace}
+oc create secret tls ${secret_name} --key="$(dirname $0)/${tls_key_file}" --cert="$(dirname $0)/${tls_crt_file}" -n ${namespace}
