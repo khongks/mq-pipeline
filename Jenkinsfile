@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy queue manager'
-                sh('./scripts/00-deploy-qmgr.sh mq qm1 NonProduction ibmc-file-gold-gid')
+                sh('./scripts/00-deploy-qmgr.sh mq qm1 NonProduction ibmc-file-gold-gid true')
             }
         }
         stage('Test') {

@@ -42,15 +42,15 @@ fi
 echo "----------------------------------------------------------------------"
 echo "Create a TLS private key and certificates for ${cert_name}"
 echo "----------------------------------------------------------------------"
-if [[ -f ${tls_key_file} ]]; then
-    rm ${tls_key_file}
-fi
-if [[ -f ${tls_crt_file} ]]; then
-    rm ${tls_crt_file}
-fi
-openssl req -newkey rsa:2048 -nodes -keyout ${tls_key_file} -subj "/CN=${cert_name}" -x509 -days 3650 -out ${tls_crt_file}
+# if [[ -f ${tls_key_file} ]]; then
+#     rm ${tls_key_file}
+# fi
+# if [[ -f ${tls_crt_file} ]]; then
+#     rm ${tls_crt_file}
+# fi
+# openssl req -newkey rsa:2048 -nodes -keyout ${tls_key_file} -subj "/CN=${cert_name}" -x509 -days 3650 -out ${tls_crt_file}
 
-$(dirname $0)/06-create-client-kdb.sh ${full_client_kdb_file} ${cert_name} ${tls_crt_file} ${passphrase}
+# $(dirname $0)/06-create-client-kdb.sh ${full_client_kdb_file} ${cert_name} ${tls_crt_file} ${passphrase}
 
 echo "----------------------------------------------------------------------"
 echo "Create a secret ${secret_name} containing TLS certificates from ${tls_crt_file} and ${tls_key_file}"

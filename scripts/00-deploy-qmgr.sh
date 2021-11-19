@@ -23,11 +23,11 @@ use=${3:-NonProduction}
 # fyre (using ocs): ocs-storagecluster-cephfs
 # ibm-cloud: ibmc-file-gold-gid
 storage=${4:-ibmc-file-gold-gid}
+update_cert=${5:-false}
 ## https://www.ibm.com/docs/en/ibm-mq/9.2?topic=mqibmcomv1beta1-licensing-reference
 ## requires ibm-mq-v1.6-ibm-operator-catalog-openshift-marketplace
-license=${5:-L-RJON-BZFQU2}
-version=${6:-9.2.3.0-r1}
-update_cert=${7:-false}
+license=${6:-L-RJON-BZFQU2}
+version=${7:-9.2.3.0-r1}
 channel="SECUREQMCHL"
 
 cert_name=${release_name}cert

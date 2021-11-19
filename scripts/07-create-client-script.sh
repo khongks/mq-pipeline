@@ -43,9 +43,9 @@ export MQCERTLABL=${cert_name}
 amqsgetc DEV.QUEUE.3 ${qmgr_name}
 EOF
 
-chmod a+x ${client_folder}/mq-get.sh
+chmod a+x $(dirname $0)/${client_folder}/mq-get.sh
 echo "mq-get.sh"
-cat ${client_folder}/mq-get.sh
+cat $(dirname $0)/${client_folder}/mq-get.sh
 
 cat <<EOF > $(dirname $0)/${client_folder}/mq-put.sh
 export MQCCDTURL=${ccdt_file}
