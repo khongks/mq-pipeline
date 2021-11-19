@@ -10,7 +10,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy queue manager'
-                sh('./scripts/build.sh')
+                sh('./scripts/00-deploy-qmgr.sh')
             }
         }
         stage('Test') {
