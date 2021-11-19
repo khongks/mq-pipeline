@@ -66,3 +66,6 @@ cat <<EOF > ${ccdt_file}
    ]
 }
 EOF
+
+echo ${ccdt_file}
+cat ${ccdt_file}
