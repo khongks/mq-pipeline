@@ -44,17 +44,36 @@ config_mqsc=${config_mqsc} \
 qm_ini=${qm_ini} \
 sh > ./config/configmap.yaml
 
-( echo "cat <<EOF" ; cat ./config/queue-manager.yaml.tmpl ; ) | \
-name=${name} \
-namespace=${namespace} \
-storage=${storage} \
-license=${license} \
-metric=${metric} \
-use=${use} \
-version=${version} \
-availability=${availability} \
-qmgr_name=${qmgr_name} \
-cert_name=${cert_name} \
-secret_name=${secret_name} \
-configmap_name=${configmap_name} \
-sh > ./config/queue-manager.yaml
+oc get queuemanager ${name} -n ${namespace}
+if [ "$?" = "0" ]; then
+    echo "Queuemanager ${name} exist, just update w/o availability"
+    ( echo "cat <<EOF" ; cat ./config/queue-manager.yaml.tmpl ; ) | \
+    name=${name} \
+    namespace=${namespace} \
+    storage=${storage} \
+    license=${license} \
+    metric=${metric} \
+    use=${use} \
+    version=${version} \
+    availability=${availability} \
+    qmgr_name=${qmgr_name} \
+    cert_name=${cert_name} \
+    secret_name=${secret_name} \
+    configmap_name=${configmap_name} \
+    sh > ./config/queue-manager.yaml
+else
+    echo "Queuemanager ${name} does not exist, just update w/ availability"
+    ( echo "cat <<EOF" ; cat ./config/queue-manager-with-availability.yaml.tmpl ; ) | \
+    name=${name} \
+    namespace=${namespace} \
+    storage=${storage} \
+    license=${license} \
+    metric=${metric} \
+    use=${use} \
+    version=${version} \
+    qmgr_name=${qmgr_name} \
+    cert_name=${cert_name} \
+    secret_name=${secret_name} \
+    configmap_name=${configmap_name} \
+    sh > ./config/queue-manager.yaml
+fi
