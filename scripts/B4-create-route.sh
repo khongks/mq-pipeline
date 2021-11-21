@@ -2,8 +2,9 @@
 
 name=$1
 namespace=$2
-qmgr_name=$3
-channel=$4
+channel=$3
+
+qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 route_name=${name}-route
 
 lowercase_channel=$(echo ${channel} | tr '[:upper:]' '[:lower:]')
@@ -23,14 +24,10 @@ if [[ -z $namespace ]]; then
   exit 1
 fi
 
-if [[ -z $qmgr_name ]]; then
-  echo "ERROR: Need to specify param - qmgr_name"
+if [[ -z $channel ]]; then
+  echo "ERROR: Need to specify param - channel "
   exit 1
 fi
-
-echo "----------------------------------------------------------------------"
-echo " INFO: Create route name: ${route_name} ns: ${namespace} host: ${host}"
-echo "----------------------------------------------------------------------"
 
 cat << EOF | oc apply -f -
 apiVersion: route.openshift.io/v1
@@ -42,7 +39,7 @@ spec:
   host: ${host}
   to:
     kind: Service
-    name: ${name}-ibm-mq
+    name: ${name}-${channel}
   port:
     targetPort: 1414
   tls:

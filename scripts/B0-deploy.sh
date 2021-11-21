@@ -21,12 +21,12 @@ echo "----------------------------------------------------------------------"
 
 name=${1:-qm1}
 namespace=${2:-mq}
+channel=${3:-SECUREQMCHL}
 
 cert_name=${name}cert
 secret_name=${name}-tls-secret
 configmap_name=${name}-configmap
 # route_name=${name}-${namespace}-tls-svrconn
-qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 
 ${workdir}/B1-create-configmap.sh ${configmap_name} ${namespace}
 
@@ -35,4 +35,4 @@ ${workdir}/B2-create-tls-secret.sh ${cert_name} ${namespace} ${secret_name}
 ${workdir}/B3-create-qmgr.sh
 
 # You don't need to create route, there is a auto-generated route.
-# $(dirname $0)/B4-create-route.sh ${name} ${namespace} ${qmgr_name} ${channel}
+${workdir}/B4-create-route.sh ${name} ${namespace} ${channel}

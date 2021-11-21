@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy ~ deploy queue manager'
-                sh('./scripts/B0-deploy.sh ${NAME} ${NAMESPACE}')
+                sh('./scripts/B0-deploy.sh ${NAME} ${NAMESPACE} ${CHANNEL}')
             }
         }
         stage('Post-Deploy') {
