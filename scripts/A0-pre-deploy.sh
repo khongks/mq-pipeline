@@ -24,7 +24,7 @@ new_cert=${11:-false}
 ./${workdir}/A1-create-ns.sh ${namespace}
 
 # Create pull secret using ibm entitlement key
-./${workdir}/A2-create-ibm-entitlement-key.sh ${namespace} ${ibm_entitlement_key}
+./${workdir}/A2-create-ibm-entitlement-key.sh ${ibm_entitlement_key} ${namespace}
 
 # Setup configmap yaml file and queuemanager yaml file
 ./${workdir}/A3-setup-config-yaml.sh ${name} ${namespace} ${storage} ${license} ${metric} ${use} ${version} ${availability} ${channel}
