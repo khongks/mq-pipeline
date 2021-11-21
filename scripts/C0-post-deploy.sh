@@ -21,8 +21,8 @@ ${workdir}/C1-create-ccdt.sh ${qmgr_name} ${channel} ${cert_name} ${ccdt_file}
 
 ${workdir}/C2-create-client-script.sh ${client_folder} ${ccdt_file} ${client_kdb_file} ${cert_name} ${qmgr_name}
 
-passphrase="Passw0rd!"
-${workdir}/C3-create-client-kdb.sh ${client_folder}/${client_kdb_file} ${cert_name} certs/${cert_file} ${passphrase}
+#passphrase="Passw0rd!"
+#${workdir}/C3-create-client-kdb.sh ${client_folder}/${client_kdb_file} ${cert_name} certs/${cert_file} ${passphrase}
 
 # print web console ui url
 echo ''
