@@ -27,10 +27,10 @@ ${workdir}/C2-create-client-script.sh ${client_folder} ${ccdt_file} ${client_kdb
 # print web console ui url
 echo ''
 echo 'URL: '
-oc get queuemanager ${name} -n ${namespace} --output jsonpath='{.status.adminUiUrl}'
+oc get queuemanager ${name} -n ${namespace} -o jsonpath='{.status.adminUiUrl}'
 # https://cpd-tools.itzroks-3100015379-bry0xt-6ccd7f378ae819553d37d5f2ee142bd6-0000.au-syd.containers.appdomain.cloud/integration/messaging/mq/qm1-ibm-mq
 
 echo ''
 echo 'Password: '
 # print password
-oc get secret ibm-iam-bindinfo-platform-auth-idp-credentials -o jsonpath='{.data.admin_password}' -n ibm-common-services
+oc get secret ibm-iam-bindinfo-platform-auth-idp-credentials -o jsonpath='{.data.admin_password}' -n ${namespace}
