@@ -17,9 +17,12 @@ then
       exit 1;
 fi
 
-echo '----------------------------------------------------------------------'
-echo ' INFO: Create IBM Entitlement Key Secret'
-echo '----------------------------------------------------------------------'
+# Check if namespace exist
+oc get ns ${namespace} 2>&1
+if [ "$?" = "0" ]; then
+    echo "Namespace ${namespace} found, delete secret first"
+fi
+
 # Create IBM Entitlement Key Secret
 oc create secret docker-registry ibm-entitlement-key \
     --docker-username=cp \
