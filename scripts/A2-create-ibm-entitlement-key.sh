@@ -21,11 +21,12 @@ fi
 oc get ns ${namespace} 2>&1
 if [ "$?" = "0" ]; then
     echo "Namespace ${namespace} found, delete secret first"
+    oc delete secret ibm-entitlement-key -n ${namespace}
 fi
 
 # Create IBM Entitlement Key Secret
 oc create secret docker-registry ibm-entitlement-key \
     --docker-username=cp \
-    --docker-password=$entitlementKey \
+    --docker-password=${entitlementKey} \
     --docker-server=cp.icr.io \
-    --namespace=$namespace
+    --namespace=${namespace}
