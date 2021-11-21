@@ -17,7 +17,7 @@ echo "----------------------------------------------------------------------"
 echo " INFO: Post deploy"
 echo "----------------------------------------------------------------------"
 
-${workdir}/C1-create-ccdt.sh ${qmgr_name} ${channel} ${cert_name} ${ccdt_file}
+${workdir}/C1-create-ccdt.sh ${name} ${namespace} ${channel} ${ccdt_file}
 
 ${workdir}/C2-create-client-script.sh ${client_folder} ${ccdt_file} ${client_kdb_file} ${cert_name} ${qmgr_name}
 

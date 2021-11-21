@@ -2,10 +2,13 @@
 
 # https://www.ibm.com/docs/en/ibm-mq/9.2?topic=ccdt-json-examples
 
-qmgr_name=$1
-channel=$2
-cert_name=$3
+name=$1
+namespace=$2
+channel=$3
 ccdt_file=$4
+
+cert_name=${name}cert
+qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 
 echo "----------------------------------------------------------------------"
 echo " INFO: Create CCDT"
