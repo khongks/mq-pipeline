@@ -1,25 +1,20 @@
 {
-    "channel":
-    [
-        {
-            "name": "SECUREQMCHL",
-            "clientConnection":
+    "channel": [
+      {
+        "name": "SECUREQMCHL",
+        "clientConnection": {
+          "connection": [
             {
-                "connection":
-                [
-                    {
-                        "host": "qm1-ibm-mq-qm-mq.itzroks-3100015379-bry0xt-6ccd7f378ae819553d37d5f2ee142bd6-0000.au-syd.containers.appdomain.cloud",
-                        "port": 443
-                    }
-                ],
-                "queueManager": "QM1"
-            },
-            "transmissionSecurity":
-            {
-              "cipherSpecification": "TLS_RSA_WITH_AES_256_CBC_SHA256",
-              "certificateLabel": "qm1cert"
-            },
-            "type": "clientConnection"
-        }
-   ]
+              "host": "qm1-ibm-mq-qm-mq.itzroks-3100015379-bry0xt-6ccd7f378ae819553d37d5f2ee142bd6-0000.au-syd.containers.appdomain.cloud",
+              "port": 443
+            }
+          ],
+          "queueManager": "QM1"
+        },
+        "transmissionSecurity": {
+          "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+        },
+        "type": "clientConnection"
+      }
+    ]
 }
