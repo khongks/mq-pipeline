@@ -33,4 +33,4 @@ oc get queuemanager ${name} -n ${namespace} --output jsonpath='{.status.adminUiU
 echo ''
 echo 'Password: '
 # print password
-oc get secret ibm-iam-bindinfo-platform-auth-idp-credentials -o json -n ibm-common-services | jq -r '.data."admin_password"' | base64 -D
+oc get secret ibm-iam-bindinfo-platform-auth-idp-credentials -o json -n ibm-common-services | jq -r '.data."admin_password"' | base64 -d
