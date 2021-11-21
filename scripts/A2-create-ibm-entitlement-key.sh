@@ -2,8 +2,12 @@
 
 # https://myibm.ibm.com/products-services/containerlibrary
 
+echo "----------------------------------------------------------------------"
+echo " INFO: Create entitlement key"
+echo "----------------------------------------------------------------------"
+
 entitlementKey=$1
-namespace=${2:-integration}
+namespace=${2:-mq}
 
 # check for missing mandatory entitlement key
 if [ -z "$entitlementKey" ]

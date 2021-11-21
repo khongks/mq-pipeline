@@ -21,9 +21,17 @@ spec:
     name: ${qmgr_name}
     mqsc:
       - configMap:
+          name: ${configmap_name}
           items:
             - config.mqsc
+    ini:
+      - configMap:
           name: ${configmap_name}
+          items:
+            - mq.ini
+    availability:
+      type: ${availability}
+      updateStrategy: RollingUpdate
     storage:
       accessModes:
         - ReadWriteMany
@@ -31,21 +39,15 @@ spec:
         - dir_mode=0755
         - file_mode=0755
       defaultClass: ${storage}
-      defaultDeleteClaim: true
       persistedData:
-        class: ${storage}
-        deleteClaim: true
-        enabled: true
-        type: persistent-claim
+        enabled: false
       queueManager:
         class: ${storage}
         deleteClaim: true
         type: persistent-claim
+        size: 2Gi
       recoveryLogs:
-        class: ${storage}
-        deleteClaim: true
-        enabled: true
-        type: persistent-claim
+        enabled: false
     resources:
       limits:
         cpu: 1
@@ -53,8 +55,6 @@ spec:
       requests:
         cpu: 500m
         memory: 50Mi
-    availability:
-      type: SingleInstance
   template:
     pod:
       containers:
