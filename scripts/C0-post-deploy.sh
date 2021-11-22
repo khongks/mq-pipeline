@@ -6,7 +6,7 @@ name=${1:-qm1}
 namespace=${2:-mq}
 channel=${3:-SECUREQMCHL}
 
-client_cert_name=${name}-mqclient
+client_cert_name=${name}mqclient
 qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 client_folder="client"
 ccdt_file="ccdt.json"

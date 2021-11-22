@@ -7,7 +7,7 @@ namespace=$2
 channel=$3
 ccdt_file=$4
 
-cert_name=${name}cert
+client_cert_name=${name}mqclient
 qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 
 echo "----------------------------------------------------------------------"
@@ -22,8 +22,8 @@ if [[ -z $channel ]]; then
   echo "ERROR: Need to specify param - channel"
   exit 1
 fi
-if [[ -z $cert_name ]]; then
-  echo "ERROR: Need to specify param - cert_name"
+if [[ -z $client_cert_name ]]; then
+  echo "ERROR: Need to specify param - client_cert_name"
   exit 1
 fi
 if [[ -z $ccdt_file ]]; then
@@ -37,7 +37,7 @@ hostname=$(oc get route -n ${namespace} ${name}-ibm-mq-qm -ojson | jq -r '.spec.
 qmgr_name=${qmgr_name} \
 hostname=${hostname} \
 channel=${channel} \
-cert_name=${cert_name} \
+cert_name=${client_cert_name} \
 sh > ./client/${ccdt_file}
 
 cat ./client/${ccdt_file}

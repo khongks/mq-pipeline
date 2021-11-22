@@ -31,8 +31,8 @@ new_cert=${11:-false}
 
 # Generate new certificates
 if [[ new_cert == true ]]; then
-    server_cert_name=${name}-mqserver
-    client_cert_name=${name}-mqclient
+    server_cert_name=${name}mqserver
+    client_cert_name=${name}mqclient
     # ./${workdir}/A4-generate-tls-cert-and-key.sh ${cert_name}
     ./${workdir}/A4-generate-certs.sh ${server_cert_name} ${client_cert_name}
 fi

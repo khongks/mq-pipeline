@@ -19,8 +19,8 @@ availability=${8:-SingleInstance}
 channel=${9:-SECUREQMCHL}
 ## generated names
 # cert_name=${name}cert
-server_cert_name=${name}-mqserver
-client_cert_name=${name}-mqclient
+server_cert_name=${name}mqserver
+client_cert_name=${name}mqclient
 secret_name=${name}-tls-secret
 configmap_name=${name}-configmap
 qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')

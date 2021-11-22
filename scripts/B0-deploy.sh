@@ -23,7 +23,7 @@ name=${1:-qm1}
 namespace=${2:-mq}
 channel=${3:-SECUREQMCHL}
 
-cert_name=${name}cert
+# cert_name=${name}cert
 secret_name=${name}-tls-secret
 configmap_name=${name}-configmap
 # route_name=${name}-${namespace}-tls-svrconn
