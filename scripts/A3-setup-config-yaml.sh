@@ -25,7 +25,8 @@ secret_name=${name}-tls-secret
 configmap_name=${name}-configmap
 qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 
-( echo "cat <<EOF" ; cat ./config/config.mqsc.tmpl ; ) | \
+# ( echo "cat <<EOF" ; cat ./config/config.mqsc.tmpl ; ) | \
+( echo "cat <<EOF" ; cat ./config/config.mqsc.tmpl ; echo EOF) | \
 channel=${channel} \
 cert_name=${server_cert_name} \
 sh > ./config/config.mqsc
@@ -39,7 +40,8 @@ sed  's/^/    /'  ./config/qm.ini > ./config/indented_qm.ini
 config_mqsc=$(cat ./config/indented_config.mqsc)
 qm_ini=$(cat ./config/indented_qm.ini)
 
-( echo "cat <<EOF" ; cat ./config/configmap.yaml.tmpl ; ) | \
+# ( echo "cat <<EOF" ; cat ./config/configmap.yaml.tmpl ; ) | \
+( echo "cat <<EOF" ; cat ./config/configmap.yaml.tmpl ; echo EOF ) | \
 name=${configmap_name} \
 namespace=${namespace} \
 config_mqsc=${config_mqsc} \
@@ -49,7 +51,8 @@ sh > ./config/configmap.yaml
 oc get queuemanager ${name} -n ${namespace}
 if [ "$?" = "0" ]; then
     echo "Queuemanager ${name} exist, just update w/o availability"
-    ( echo "cat <<EOF" ; cat ./config/queue-manager.yaml.tmpl ; ) | \
+    # ( echo "cat <<EOF" ; cat ./config/queue-manager.yaml.tmpl ; ) | \
+    ( echo "cat <<EOF" ; cat ./config/queue-manager.yaml.tmpl ; echo EOF ) | \
     name=${name} \
     namespace=${namespace} \
     storage=${storage} \
@@ -65,7 +68,8 @@ if [ "$?" = "0" ]; then
     sh > ./config/queue-manager.yaml
 else
     echo "Queuemanager ${name} does not exist, just update w/ availability"
-    ( echo "cat <<EOF" ; cat ./config/queue-manager-with-availability.yaml.tmpl ; ) | \
+    # ( echo "cat <<EOF" ; cat ./config/queue-manager-with-availability.yaml.tmpl ; ) | \
+    ( echo "cat <<EOF" ; cat ./config/queue-manager-with-availability.yaml.tmpl ; echo EOF ) | \
     name=${name} \
     namespace=${namespace} \
     storage=${storage} \
