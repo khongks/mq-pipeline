@@ -18,14 +18,16 @@ version=${7:-9.2.3.0-r1}
 availability=${8:-SingleInstance}
 channel=${9:-SECUREQMCHL}
 ## generated names
-cert_name=${name}cert
+# cert_name=${name}cert
+server_cert_name=${name}-mqserver
+client_cert_name=${name}-mqclient
 secret_name=${name}-tls-secret
 configmap_name=${name}-configmap
 qmgr_name=$(echo ${name} | tr '[:lower:]' '[:upper:]')
 
 ( echo "cat <<EOF" ; cat ./config/config.mqsc.tmpl ; ) | \
 channel=${channel} \
-cert_name=${cert_name} \
+cert_name=${server_cert_name} \
 sh > ./config/config.mqsc
 
 ## indent content in file
@@ -57,7 +59,7 @@ if [ "$?" = "0" ]; then
     version=${version} \
     availability=${availability} \
     qmgr_name=${qmgr_name} \
-    cert_name=${cert_name} \
+    cert_name=${server_cert_name} \
     secret_name=${secret_name} \
     configmap_name=${configmap_name} \
     sh > ./config/queue-manager.yaml
@@ -72,7 +74,7 @@ else
     use=${use} \
     version=${version} \
     qmgr_name=${qmgr_name} \
-    cert_name=${cert_name} \
+    cert_name=${server_cert_name} \
     secret_name=${secret_name} \
     configmap_name=${configmap_name} \
     sh > ./config/queue-manager.yaml

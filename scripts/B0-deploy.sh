@@ -30,9 +30,9 @@ configmap_name=${name}-configmap
 
 ${workdir}/B1-create-configmap.sh ${configmap_name} ${namespace}
 
-${workdir}/B2-create-tls-secret.sh ${cert_name} ${namespace} ${secret_name}
+${workdir}/B2-create-tls-secret.sh ${secret_name} ${namespace} 
 
 ${workdir}/B3-create-qmgr.sh
 
 # You don't need to create route, there is a auto-generated route.
-${workdir}/B4-create-route.sh ${name} ${namespace} ${channel}
+# ${workdir}/B4-create-route.sh ${name} ${namespace} ${channel}

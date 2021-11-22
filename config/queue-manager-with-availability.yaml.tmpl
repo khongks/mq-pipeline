@@ -13,10 +13,16 @@ spec:
     keys:
       - name: ${cert_name}
         secret:
+          secretName: ${secret_name}
           items:
             - tls.key
             - tls.crt
+    trust:
+      - name: app
+        secret:
           secretName: ${secret_name}
+          items:
+            - mqclient.crt
   queueManager:
     name: ${qmgr_name}
     mqsc:
