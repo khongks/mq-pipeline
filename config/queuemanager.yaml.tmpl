@@ -1,0 +1,94 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ${release_name}-cm
+  namespace: ${namespace}
+data:
+  config.mqsc: |-
+${config_mqsc}
+  qm.ini: |-
+${qm_ini}
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: ${release_name}-cert
+  namespace: ${namespace}
+data:
+  tls.crt: ${server_crt}
+  tls.key: ${server_key}
+  mqclient.crt: ${client_crt}
+type: Opaque
+---
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  name: ${release_name}
+  namespace: ${namespace}
+spec:
+  version: ${version}
+  license:
+    accept: true
+    license: ${license}
+    use: ${use}
+  pki:
+    keys:
+    - name: default
+      secret:
+        secretName: ${release_name}-cert
+        items:
+          - tls.key
+          - tls.crt
+  web:
+    enabled: true
+  queueManager:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+    name: ${qmgr_name}
+    availability:
+      type: ${availability}
+      updateStrategy: RollingUpdate
+    mqsc:
+      - configMap:
+          name: ${release_name}-cm
+          items:
+            - config.mqsc
+    storage:
+      defaultClass: ${storageclass}
+      persistedData:
+        enabled: true
+        size: 2Gi
+        type: persistent-claim
+      queueManager:
+        size: 2Gi
+        type: persistent-claim
+      recoveryLogs:
+        enabled: false
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: sni-${channel_name_lower}-ibm-mq-qm
+  namespace: ${namespace}
+spec:
+  host: ${channel_name_lower}.chl.mq.ibm.com
+  to:
+    kind: Service
+    name: ${release_name}-ibm-mq
+  port:
+    targetPort: 1414
+  tls:
+    termination: passthrough
+  wildcardPolicy: None

@@ -27,7 +27,9 @@ CLIENT_CRT_NAME=${2:-mqclient}
 PASSWORD=passw0rd
 
 # Create a private key and certificate in PEM format, for the server to use
+echo "#####################################################################################"
 echo "#### Create a private key and certificate in PEM format, for the queue manager to use"
+echo "#####################################################################################"
 openssl req \
        -newkey rsa:2048 -nodes -keyout ${SERVER_KEY} \
        -subj "/CN=${SERVER_CRT_NAME}" \
@@ -36,7 +38,9 @@ openssl req \
 openssl pkcs12 -export -out ${SERVER_P12} -inkey ${SERVER_KEY} -in ${SERVER_CRT} -passout pass:${PASSWORD}
 
 # Create a private key and certificate in PEM format, for the mq client to use
+echo "#####################################################################################"
 echo "#### Create a private key and certificate in PEM format, for the mq client to use"
+echo "#####################################################################################"
 openssl req \
        -newkey rsa:2048 -nodes -keyout ${CLIENT_KEY} \
        -subj "/CN=${CLIENT_CRT_NAME}" \
@@ -45,31 +49,42 @@ openssl req \
 openssl pkcs12 -export -out ${CLIENT_P12} -inkey ${CLIENT_KEY} -in ${CLIENT_CRT} -passout pass:${PASSWORD}
 
 # Add the key and certificate to a kdb key store, for the queue manager to use
+echo "#####################################################################################"
 echo "#### Creating kdb key store, for the queue manager to use"
+echo "#####################################################################################"
 runmqakm -keydb -create -db ${SERVER_KDB} -pw ${PASSWORD} -type cms -stash
+echo "#####################################################################################"
 echo "#### Adding certs and keys to kdb key store, for the queue manager to use"
+echo "#####################################################################################"
 runmqakm -cert -add -db ${SERVER_KDB} -file ${CLIENT_CRT} -stashed -label ${CLIENT_CRT_NAME}
 runmqakm -cert -import -file ${SERVER_P12} -pw ${PASSWORD} -target ${SERVER_KDB} -target_stashed -new_label ${SERVER_CRT_NAME}
 runmqakm -cert -setdefault -db ${SERVER_KDB} -type cms -stashed -label ${SERVER_CRT_NAME}
 runmqakm -cert -details -db ${SERVER_KDB} -type cms -stashed -label ${SERVER_CRT_NAME}
 
 # Add the key and certificate to a kdb key store, for the mq client to use
+echo "#####################################################################################"
 echo "#### Add the key and certificate to a kdb key store, for the mq client to use"
+echo "#####################################################################################"
 runmqakm -keydb -create -db ${CLIENT_KDB} -pw ${PASSWORD} -type cms -stash
+echo "#####################################################################################"
 echo "#### Adding certs and keys to kdb key store, for the mq client to use"
+echo "#####################################################################################"
 runmqakm -cert -add -db ${CLIENT_KDB} -file ${SERVER_CRT} -stashed -label ${SERVER_CRT_NAME}
 runmqakm -cert -import -file ${CLIENT_P12} -pw ${PASSWORD} -target ${CLIENT_KDB} -target_stashed -new_label ${CLIENT_CRT_NAME}
 runmqakm -cert -setdefault -db ${CLIENT_KDB} -type cms -stashed -label ${CLIENT_CRT_NAME}
 runmqakm -cert -details -db ${CLIENT_KDB} -type cms -stashed -label ${CLIENT_CRT_NAME}
 
-
+echo "#####################################################################################"
 echo "#### Listing ${SERVER_KDB}"
+echo "#####################################################################################"
 runmqakm -cert -list -db ${SERVER_KDB} -type cms -stashed
 
 #echo "#### Details of ${SERVER_KDB}"
 # runmqakm -cert -details -db ${SERVER_KDB} -type cms -stashed -label ${SERVER_CRT_NAME}
 
+echo "#####################################################################################"
 echo "#### Listing ${CLIENT_KDB}"
+echo "#####################################################################################"
 runmqakm -cert -list -db ${CLIENT_KDB} -type cms -stashed
 
 #echo "#### Details of ${CLIENT_KDB}"
