@@ -87,3 +87,5 @@ channel_name=${channel_name} \
 host=${host} \
 qmgr_name=${qmgr_name} \
 sh > ./client/ccdt.json
+
+cat ./client/ccdt.json
