@@ -34,7 +34,7 @@ version=${9:-9.2.3.0-r1}
 availability=${10:-SingleInstance}
 
 ## generate mqsc
-( echo "cat <<EOF" ; cat ./config/config.mqsc.tmpl ) | \
+( echo "cat <<EOF" ; cat ./config/config.mqsc.tmpl; echo EOF ) | \
 channel_name=${channel_name} \
 sh > ./config/config.mqsc
 
@@ -43,7 +43,7 @@ sed  's/^/    /'  ./config/config.mqsc > ./config/indented_config.mqsc
 sed  's/^/    /'  ./config/qm.ini > ./config/indented_qm.ini
 
 ## generate yaml
-( echo "cat <<EOF" ; cat ./config/queuemanager.yaml.tmpl ) | \
+( echo "cat <<EOF" ; cat ./config/queuemanager.yaml.tmpl; echo EOF ) | \
 release_name=${release_name} \
 namespace=${namespace} \
 storageclass=${storageclass} \
@@ -82,7 +82,7 @@ echo "Pass: ${pass}"
 ## generate ccdt.json
 host=$(oc get route -n ${namespace} ${release_name}-ibm-mq-qm -ojson | jq -r .spec.host)
 
-( echo "cat <<EOF" ; cat ./config/ccdt.json.tmpl ) | \
+( echo "cat <<EOF" ; cat ./config/ccdt.json.tmpl; echo EOF ) | \
 channel_name=${channel_name} \
 host=${host} \
 qmgr_name=${qmgr_name} \
