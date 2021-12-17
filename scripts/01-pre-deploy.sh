@@ -25,7 +25,8 @@ secret_name="ibm-entitlement-key"
 docker_registry=cp.icr.io
 docker_registry_username=cp
 docker_registry_password=${ibm_entitlement_key}
-create_pull_secret ${secret_name} ${namespace} ${docker_registry} ${docker_registry_username} ${docker_registry_password}
+docker_registry_user_email="khongks@gmail.com"
+create_pull_secret ${secret_name} ${namespace} ${docker_registry} ${docker_registry_username} ${docker_registry_password} ${docker_registry_user_email}
 
 # Setup configmap yaml file and queuemanager yaml file
 # ./${workdir}/A3-setup-config-yaml.sh ${name} ${namespace} ${storage} ${license} ${metric} ${use} ${version} ${availability} ${channel}
