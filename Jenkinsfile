@@ -17,7 +17,7 @@ pipeline {
         stage('Pre Deploy') {
             steps {
                 echo 'Pre-Deploy ~ setup configuration before deploy'
-                sh('./scripts/01-pre-deploy.sh ${IBM_ENTITLEMENT_KEY} ${NAME} ${NAMESPACE}')
+                sh('./scripts/01-pre-deploy.sh ${IBM_ENTITLEMENT_KEY} ${RELEASE_NAME} ${NAMESPACE}')
             }
         }
         stage('Deploy') {
