@@ -4,13 +4,13 @@ pipeline {
         IBM_ENTITLEMENT_KEY = credentials('ibm_entitlement_key')
         RELEASE_NAME        = "qm1"        
         NAMESPACE           = "mq"
-        STORAGE_CLASS       = "ibmc-block-gold"
+        STORAGE_CLASS       = "ocs-storagecluster-ceph-rbd"
         QMGR_NAME           = "QM1"
         CHANNEL_NAME        = "QM1CHL"
         LICENSE             = "L-RJON-BZFQU2"
         METRIC              = "VirtualProcessorCore"
         USE                 = "NonProduction"
-        VERSION             = "9.2.3.0-r1"
+        VERSION             = "9.4.0.5-r2"
         AVAILABILITY        = "SingleInstance"
     }
     stages {
