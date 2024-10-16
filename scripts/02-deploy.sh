@@ -72,12 +72,14 @@ wait_for ${release_name} QueueManager ${namespace} "Running"
 
 ## display mq console url
 mq_console_url=$(oc get queuemanager ${release_name} -n ${namespace} -ojson | jq -r .status.adminUiUrl)
-user=$(oc get secret -n ibm-common-services platform-auth-idp-credentials -o json | jq -r '.data.admin_username' | base64 -d)
-pass=$(oc get secret -n ibm-common-services platform-auth-idp-credentials -o json | jq -r '.data.admin_password' | base64 -d)
+#2 Lines bellow commented for CP4I v16 since Keycloak is used
+#user=$(oc get secret -n ibm-common-services platform-auth-idp-credentials -o json | jq -r '.data.admin_username' | base64 -d)
+#pass=$(oc get secret -n ibm-common-services platform-auth-idp-credentials -o json | jq -r '.data.admin_password' | base64 -d)
 
 echo "MQ console URL: ${mq_console_url}"
-echo "User: ${user}"
-echo "Pass: ${pass}"
+#2 Lines bellow commented for CP4I v16 since Keycloak is used
+#echo "User: ${user}"
+#echo "Pass: ${pass}"
 
 ## generate ccdt.json
 host=$(oc get route -n ${namespace} ${release_name}-ibm-mq-qm -ojson | jq -r .spec.host)
